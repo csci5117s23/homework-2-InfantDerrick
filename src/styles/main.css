@@ -1,0 +1,189 @@
+@font-face {
+  font-family: 'Gluten';
+  src: url('/Gluten/static/Gluten-Regular.ttf');
+}
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Gluten';
+  background: url('/carpe-diem-background.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  scrollbar-width: none;
+  letter-spacing: 0.11em;
+}
+
+.whiteboard{
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
+  height: 93vh;
+  width: 95%;
+  margin: auto;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  padding: 20px;
+  z-index: 0;
+  overflow-y: scroll;
+}
+.whiteboard::-webkit-scrollbar {
+  display: none;
+}
+.sticky-note-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.sticky-note-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.todo-card{
+  background: #E4F2FF !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  margin-top: 45px;
+  position: relative;
+  padding: 50px;
+}
+
+
+.todo-card .card-body {
+  padding: 1.25rem;
+  position: relative;
+}
+
+.todo-card::after {
+  content: "";
+  display: block;
+  top: -5px;
+  left: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: #DBEEFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  z-index: -1; 
+}
+.todo-card-container{
+  float: left;
+  margin: 0 auto;
+  z-index: 1;
+}
+.todo-card-clip {
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  width: 87px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.todo-add{
+  background: #E4F2FF !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  margin-top: 45px;
+  position: relative;
+  padding: 10px;
+}
+.clear-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 5px;
+}
+.transparent-text-box {
+  background-color: transparent;
+  margin-top: 5px;
+  border: none;
+  width: 100%;
+  height: 6rem;
+  color: black;
+}
+.todo-add-categories{
+  padding: 10px;
+}
+.btn-pill {
+  border-radius: 50px;
+}
+
+.priority-btn {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.priority-btn.active {
+  transform: scale(1.15);
+}
+
+.priority-btn:hover:not(.active) {
+  transform: scale(1.05);
+}
+
+.priority-btn:focus:not(.active) {
+  box-shadow: none;
+}
+
+.priority-btn:active:not(.active) {
+  transform: scale(0.95);
+}
+.datepicker-container {
+  position: relative;
+  width: 200px;
+  height: 30px;
+}
+
+.datepicker {
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #C8D0E3;
+  background-color: #C8D0E3;
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.datepicker:focus {
+  outline: none;
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 16px;
+  height: 16px;
+}
+.submit-form-section{
+  margin-top: 25px;
+  width: 100%;
+}
+.submit-form-section button{
+  padding: 5px 25%;
+}
+.submit-form-section img{
+  float: right;
+  width: 75px;
+  height: 75px;
+  z-index: 10;
+}
