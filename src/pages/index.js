@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-import Link from 'next/link'
 import { SignIn } from "@clerk/nextjs";
 import { Card, Form, Button } from 'react-bootstrap';
 import { useAuth } from '@clerk/nextjs';

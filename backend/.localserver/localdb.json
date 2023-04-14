@@ -1,1 +1,190 @@
-[]
+[
+  [
+    "todos",
+    {
+      "1877fe71284-envccrlpn11q8x": {
+        "task": "Ammu",
+        "description": "hehe",
+        "dueOn": "2023-04-07",
+        "tags": [
+          "High Priority",
+          "haven"
+        ],
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fe71284-envccrlpn11q8x"
+      },
+      "1877fe8c245-dd1kqnrsgtrzof": {
+        "task": "asdaa",
+        "description": "sdads",
+        "dueOn": "2023-04-15",
+        "tags": [
+          "High Priority",
+          "csci5117",
+          "grad-ta",
+          "badminton",
+          "motorcycle"
+        ],
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fe8c245-dd1kqnrsgtrzof"
+      },
+      "1877fe8ddf8-h0r2hkk4z2syqu": {
+        "task": "",
+        "description": "",
+        "dueOn": "2023-04-15",
+        "tags": [
+          "High Priority"
+        ],
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fe8ddf8-h0r2hkk4z2syqu"
+      },
+      "1877fe8f106-5f7pxi5k5lhuf6": {
+        "task": "",
+        "description": "",
+        "dueOn": "2023-04-15",
+        "tags": [
+          "High Priority"
+        ],
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fe8f106-5f7pxi5k5lhuf6"
+      },
+      "1877fe96111-06mb2gfx2ebz2g": {
+        "task": "asd",
+        "description": "asd",
+        "dueOn": "2023-04-21",
+        "tags": [
+          "High Priority",
+          "csci5117",
+          "grad-ta",
+          "badminton",
+          "motorcycle"
+        ],
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fe96111-06mb2gfx2ebz2g"
+      },
+      "1877fed6fa9-1emyxrg6tunv12": {
+        "dueOn": "2023-04-15T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:21:19.784Z",
+        "tags": [
+          "High Priority",
+          "haven"
+        ],
+        "done": false,
+        "description": "hehe",
+        "title": "ammu",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fed6fa9-1emyxrg6tunv12"
+      },
+      "1877fef18da-mwtg5v8y7jz8pz": {
+        "dueOn": "2023-04-15T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:23:08.633Z",
+        "tags": [
+          "High Priority",
+          "csci5117",
+          "grad-ta",
+          "badminton",
+          "motorcycle"
+        ],
+        "done": true,
+        "description": "asd",
+        "title": "asd",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877fef18da-mwtg5v8y7jz8pz"
+      },
+      "1877ffe05ee-q6ai7o6tn8hfdh": {
+        "dueOn": "2023-06-25T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:39:26.829Z",
+        "tags": [
+          "High Priority",
+          "haven"
+        ],
+        "done": false,
+        "description": "In Boston Common",
+        "title": "Picnic",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1877ffe05ee-q6ai7o6tn8hfdh"
+      },
+      "18780000aa7-wzygauadwi3nsn": {
+        "dueOn": "2023-05-12T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:41:39.110Z",
+        "tags": [
+          "High Priority",
+          "csci5117"
+        ],
+        "done": false,
+        "description": "woooooooo",
+        "title": "Finish Major",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "18780000aa7-wzygauadwi3nsn"
+      },
+      "187800428bd-dgsqwc2v45bvvh": {
+        "dueOn": "2023-04-21T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:46:08.954Z",
+        "tags": [
+          "High Priority",
+          "meow"
+        ],
+        "done": true,
+        "description": "Sushi needs 3/4 cup of diet food or else he will get too fat.",
+        "title": "Feed Sushi",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "187800428bd-dgsqwc2v45bvvh"
+      },
+      "18780046939-gstpns2iah8n67": {
+        "dueOn": "2023-04-14T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:46:25.464Z",
+        "tags": [
+          "High Priority",
+          "meow"
+        ],
+        "done": false,
+        "description": "Sushi needs 3/4 cup of diet food or else he will get too fat.",
+        "title": "Feed Sushi",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "18780046939-gstpns2iah8n67"
+      },
+      "1878008c423-k7o78ox40y0h9r": {
+        "dueOn": "2023-04-17T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:51:10.881Z",
+        "tags": [
+          "High Priority",
+          "divine-home"
+        ],
+        "done": false,
+        "description": "Ricky is coming to minn!",
+        "title": "Pick Up Ricky",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "1878008c423-k7o78ox40y0h9r"
+      },
+      "187800a7385-r2ouyijguqgr8a": {
+        "dueOn": "2023-04-17T05:00:00.000Z",
+        "createdOn": "2023-04-14T13:53:01.316Z",
+        "tags": [
+          "Low Priority",
+          "food"
+        ],
+        "done": false,
+        "description": "omgggg cant wait",
+        "title": "Gyu Kaku",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "187800a7385-r2ouyijguqgr8a"
+      },
+      "187803a213f-fu9782mrgqef49": {
+        "dueOn": "2023-04-14T05:00:00.000Z",
+        "createdOn": "2023-04-14T14:45:05.978Z",
+        "tags": [
+          "High Priority",
+          "banana"
+        ],
+        "done": false,
+        "description": "Jeevan hungry",
+        "title": "Eat Granola Bar",
+        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
+        "_id": "187803a213f-fu9782mrgqef49"
+      }
+    }
+  ],
+  [
+    "_dbmetadata",
+    {}
+  ]
+]
