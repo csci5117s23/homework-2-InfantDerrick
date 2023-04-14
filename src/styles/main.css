@@ -18,7 +18,6 @@ html, body{
 
 .whiteboard{
   background: #FFFFFF;
-  border: 1px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 44px;
   height: 93vh;
@@ -41,7 +40,7 @@ html, body{
   right: 0;
 }
 .todo-card{
-  max-height: 320px;
+  max-height: 500px;
 }
 
 @media (max-width: 1199px) {
@@ -65,6 +64,7 @@ html, body{
   margin-top: 45px;
   position: relative;
   padding: 50px;
+  text-overflow: clip;
 }
 
 
@@ -107,6 +107,22 @@ html, body{
   margin-top: 45px;
   position: relative;
   padding: 10px;
+}
+.todo-card-calendar {
+  position: absolute;
+  right: -25px;
+  bottom: -25px;
+  width: 45px;
+}
+.todo-card-calendar img{
+  width: 100%;
+}
+
+.todo-card-date {
+  position: absolute;
+  font-size: 10px;
+  color: white;
+  top: 12px;
 }
 .clear-input {
   border: none;
@@ -239,4 +255,37 @@ button.btn-link {
 }
 .user-button {
   float: right;
+}
+.radio-button {
+  position: relative;
+  display: inline-block;
+  padding: 0px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.radio-button.active {
+  color: #fff;
+}
+
+.radio-circle {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 6px solid rgba(225, 201, 183, 0.7);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.radio-button:hover .radio-circle {
+  background-color: #E1C9B7;
+}
+
+.radio-button.active .radio-circle {
+  border: 12px solid #E1C9B7;
 }
