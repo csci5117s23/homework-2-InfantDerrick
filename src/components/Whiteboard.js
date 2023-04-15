@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
@@ -19,7 +19,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
   console.log(typeof(todos))
   const [newTag, setNewTag] = useState("");
   const [showNewTag, setShowNewTag] = useState(false);
-
+  const router = useRouter();
   const handleUpdateTags = (tagsToAdd) => {
     setTags([...tags, tagsToAdd]);
     setShowNewTag(false);
@@ -230,11 +230,11 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                     style={{ height: "90vh" }}
                   >
                     <button className="btn btn-link p-0 fs-2 mt-5 p-5"></button>
-                    <button className="btn btn-link p-0 fs-2 mt-5">
+                    <button className="btn btn-link p-0 fs-2 mt-5" onClick={() => router.push('/done')}>
                       <img src="/green-folder.png" alt="Done" />
                       <div className="button-text">Done</div>
                     </button>
-                    <button className="btn btn-link p-0 fs-3">
+                    <button className="btn btn-link p-0 fs-3" onClick={() => router.push('/todos')}>
                       <img src="/red-folder.png" alt="To-Do" />
                       <div className="button-text">To-Do</div>
                     </button>
