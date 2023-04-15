@@ -8,28 +8,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Whiteboard from '@/components/Whiteboard'
 
-import { postTodo, getAllTodos, toggleTodoDoneness} from '@/modules/data'
+import { getAllTodos, toggleTodoDoneness, getAllDoneTodos} from '@/modules/data'
 
-export default function Todo() {
+export default function Done() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { user } = useUser();
   const router = useRouter();
   const [ todos, setTodos ]= useState([]);
-  async function handleNewTodo(data){
-    data.uid = userId;
-    const token = await getToken({ template: "codehooks" });
-    console.log(data);
-    postTodo(data, token).then((res) => { return res.json()}).then((data) => {return getAllTodosWithUserNameEstablished()}).then((data) => setTodos(data));
-  }
   async function complete(todoid){
     const token = await getToken({ template: "codehooks" });
-    toggleTodoDoneness(false, todoid, token).then((res) => {return res.json()}).then((data) => { console.log(data); return getAllTodosWithUserNameEstablished()}).then((data) => setTodos(data))
+    toggleTodoDoneness(true, todoid, token).then((res) => {return res.json()}).then((data) => { console.log(data); return getAllTodosWithUserNameEstablished()}).then((data) => setTodos(data))
   }
   useEffect(() => {
     async function process() {
       if (userId) { 
         const token = await getToken({ template: "codehooks" });
-        return getAllTodos(userId, token)
+        return getAllDoneTodos(userId, token)
       }
       return [];
     }
@@ -39,7 +33,7 @@ export default function Todo() {
   }, [isLoaded]); 
   async function getAllTodosWithUserNameEstablished(){
     const token = await getToken({ template: "codehooks" });
-    return getAllTodos(userId, token)
+    return getAllDoneTodos(userId, token)
   }
   if (!isLoaded) return <></>;
   else if (isLoaded && !userId) router.push("/");
@@ -55,7 +49,7 @@ export default function Todo() {
         </Head>
         <div className="container-fluid">
           <div className="whiteboard">
-            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete}/>
+            <Whiteboard name={user.firstName} todos={todos} complete={complete} donePage/>
           </div>
         </div>
       </>

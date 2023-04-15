@@ -1,10 +1,13 @@
 import Tag from '@/components/Tag'
+import { randomColor } from "@/modules/util";
+import { useRouter } from "next/router";
 
-export default function ToDoCard({title, description, selectedOption, todoid, handleOptionChange, tags, dueOn, randomColor}) {
+export default function ToDoCard({title, description, selectedOption, todoid, handleOptionChange, tags, dueOn, donePage}) {
+  const router = useRouter();
   return (
     <div class="col-md-6">
       <div class="card todo-card">
-        <img src={"/clip.png"} className="todo-card-clip" />
+        <img src={"/clip.png"} className="todo-card-clip" onClick={() => router.push('/todo/'+todoid)}/>
         <div class="card-body">
           <div  className="todo-card-calendar text-center d-flex justify-content-center">
             <img src="/calendar.png" alt="calendar icon" />
@@ -14,7 +17,7 @@ export default function ToDoCard({title, description, selectedOption, todoid, ha
             {" "}
             <button
               className={`radio-button ${
-                selectedOption === todoid ? "active" : ""
+                !donePage ? selectedOption === todoid ? "active" : "" : selectedOption === todoid ? "" : "active"
               }`}
               onClick={() => handleOptionChange(todoid)}
             >

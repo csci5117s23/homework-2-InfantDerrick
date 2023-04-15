@@ -4,19 +4,18 @@ import { UserButton } from "@clerk/nextjs";
 
 import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
+import StickyNote from "@/components/StickyNote";
 
-export default function Whiteboard({name, handleNewTodo, todos, complete}) {
+
+
+
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [isHighPriority, setIsHighPriority] = useState(true);
   const [username, setUsername] = useState(name);
   const [dueOn, setDueOn] = useState(new Date());
-  const [tags, setTags] = useState([
-    "csci5117",
-    "grad-ta",
-    "badminton",
-    "motorcycle",
-  ]);
+  const [tags, setTags] = useState([]);
   console.log(typeof(todos))
   const [newTag, setNewTag] = useState("");
   const [showNewTag, setShowNewTag] = useState(false);
@@ -46,17 +45,6 @@ export default function Whiteboard({name, handleNewTodo, todos, complete}) {
     const newTags = [...tags];
     newTags.splice(index, 1);
     setTags(newTags);
-  };
-  const randomColor = () => {
-    const colors = [
-      "primary",
-      "secondary",
-      "success",
-      "danger",
-      "warning",
-      "info",
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
   };
 
   const handleHighPriorityClick = (e) => {
@@ -93,19 +81,9 @@ export default function Whiteboard({name, handleNewTodo, todos, complete}) {
   return (
     <>
       <div class="container-fluid todo-card-container">
-        <div class="sticky-note-container text-center">
-          <div class="sticky-note-text">
-            <h2>
-              {username}'s Board{" "}
-              <div className="user-button">
-                <UserButton />
-              </div>
-            </h2>
-          </div>
-          <img src="/sticky-note.png" alt="Sticky Note" />
-        </div>
+        <StickyNote name={username}/>
         <div class="row">
-          <div class="col-xl-6">
+          <div class={'col-xl-' + (!donePage ? '6' : '8')}>
             <div class="container-fluid">
               <div class="row">
                 {todos.map(
@@ -119,7 +97,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete}) {
                         selectedOption={selectedOption}
                         tags={todo.tags}
                         dueOn={todo.dueOn}
-                        randomColor={randomColor}
+                        donePage={donePage}
                       />
                     );
                   }
@@ -127,10 +105,11 @@ export default function Whiteboard({name, handleNewTodo, todos, complete}) {
               </div>
             </div>
           </div>
-          <div className="col-xl-6">
+          <div className={'col-xl-' + (!donePage ? '6' : '4')}>
             <div class="container">
               <div class="row">
-                <div class="col-md-7">
+                {!donePage && (
+                  <div class="col-md-7">
                   <div class="card todo-add">
                     <div class="card-body">
                       <form onSubmit={handleSubmit}>
@@ -244,7 +223,8 @@ export default function Whiteboard({name, handleNewTodo, todos, complete}) {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-5 todo-buttons">
+                )}
+                <div class={'col-md-' + (!donePage ? '5' : '9') + ' todo-buttons'}>
                   <div
                     className="d-flex flex-column justify-content-center align-items-center pt-5"
                     style={{ height: "90vh" }}

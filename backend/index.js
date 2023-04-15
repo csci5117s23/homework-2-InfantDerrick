@@ -4,9 +4,7 @@
 * Install: npm i codehooks-js codehooks-crudlify
 */
 import {app} from 'codehooks-js'
-import cors from 'cors';
 import {crudlify} from 'codehooks-crudlify'
-import jwtDecode from 'jwt-decode';
 import { date, object, string, bool, array } from 'yup';
 
 // test route for https://<PROJECTID>.api.codehooks.io/dev/
@@ -27,8 +25,10 @@ app.put('/updateTodo', update)
 async function update(req, res) {
   const db = await Datastore.open();
   console.log(req.body);
-  const data = await db.updateOne('todos', req.query._id, req.body);
+  const data = await db.replaceOne('todos', req.query._id, req.body);
+  console.log(data);
   res.json(data);
+  
 }
 app.get("/test", (req, res) => {
     res.json({result: "you did it!"});
