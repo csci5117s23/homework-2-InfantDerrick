@@ -6,6 +6,7 @@ import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
 import StickyNote from "@/components/StickyNote";
 
+import {randomColor} from "@/modules/util";
 
 
 
