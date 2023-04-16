@@ -68,7 +68,7 @@ export default function TodoBase({
       else setTodos(result);
       setIsLoading(false);
     });
-  }, [isLoaded, category, router.query]);
+  }, [isLoaded, category, router.query, isLoading]);
   useEffect(() => {
     loadState();
   }, [loadState]);
