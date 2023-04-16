@@ -13,8 +13,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
-    setIsLoading(isLoaded)
+    setIsLoading(!isLoaded)
   }, [isLoaded])
+  
   if(userId) router.push("/todos");
     return (
       isLoading ? (
