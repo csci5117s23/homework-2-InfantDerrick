@@ -5,28 +5,42 @@ import { useRouter } from "next/router";
 import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
 import StickyNote from "@/components/StickyNote";
+import TagFilterModal from "@/components/TagFilterModal";
 
 import {randomColor} from "@/modules/util";
 
 
 
-export default function Whiteboard({name, handleNewTodo, todos, complete, donePage}) {
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[]}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  const [isHighPriority, setIsHighPriority] = useState(true);
+  
   const [username, setUsername] = useState(name);
   const [dueOn, setDueOn] = useState(new Date());
-  const [tags, setTags] = useState([]);
-  console.log(typeof(todos))
+  const [tags, setTags] = useState((defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority') ? [] : defaultTag);
+  const [isHighPriority, setIsHighPriority] = useState(true);
+  // if(defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'){
+  //   setTags([]);
+  //   setIsHighPriority(defaultTag[0] == 'High Priority');
+  // }
   const [newTag, setNewTag] = useState("");
   const [showNewTag, setShowNewTag] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const handleUpdateTags = (tagsToAdd) => {
-    setTags([...tags, tagsToAdd]);
-    setShowNewTag(false);
-    setNewTag(null);
+    if(!tags.includes(tagsToAdd)){
+      setTags([...tags, tagsToAdd]);
+      setShowNewTag(false);
+      setNewTag(null);
+      return true;
+    }
+    console.log(tags);
+    return false;
   };
 
+  const handleTagClick = (tag) => {
+    router.push('/todos/' + tag);
+  }
   const handleNewTag = () => {
     setShowNewTag(true);
     setNewTag(null);
@@ -79,14 +93,21 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
       setTags([]);
     });
   };
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <>
-      <div class="container-fluid todo-card-container">
+      <div className="container-fluid todo-card-container">
         <StickyNote name={username}/>
-        <div class="row">
-          <div class={'col-xl-' + (!donePage ? '6' : '8')}>
-            <div class="container-fluid">
-              <div class="row">
+        <div className="row">
+          <div className={'col-xl-' + (!donePage ? '6' : '8')}>
+            <div className="container-fluid">
+              <div className="row">
                 {todos.map(
                   (todo) => {
                     return (
@@ -107,22 +128,22 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
             </div>
           </div>
           <div className={'col-xl-' + (!donePage ? '6' : '4')}>
-            <div class="container">
-              <div class="row">
+            <div className="container">
+              <div className="row">
                 {!donePage && (
-                  <div class="col-md-7">
-                  <div class="card todo-add">
-                    <div class="card-body">
+                  <div className="col-md-7">
+                  <div className="card todo-add">
+                    <div className="card-body">
                       <form onSubmit={handleSubmit}>
                         <input
                           type="text"
                           placeholder="Enter task..."
-                          class="clear-input fs-1"
+                          className="clear-input fs-1"
                           onChange={(e) => setTask(e.target.value)}
                         />
                         <textarea
                           type="text"
-                          class="transparent-text-box fs-5"
+                          className="transparent-text-box fs-5"
                           placeholder="Task description..."
                           onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
@@ -141,6 +162,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                 color: "#670F0F",
                                 border: "none",
                               }}
+                              disabled={defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'}
                               onClick={handleHighPriorityClick}
                             >
                               High Priority
@@ -154,6 +176,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                 color: "#302E2E",
                                 border: "none",
                               }}
+                              disabled={defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'}
                               onClick={handleLowPriorityClick}
                             >
                               Low Priority
@@ -173,10 +196,10 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                   handleTagEdit(index, updatedTag)
                                 }
                                 onTagDelete={() => handleTagDelete(index)}
-                                editable
+                                editable={tag!=defaultTag[0]}
                               />
                             ))}
-                            <div className="m-1">
+                            <div className="m-1"> 
                               {showNewTag && (
                                 <Tag
                                   color={randomColor()}
@@ -199,16 +222,16 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                             </div>
                           </div>
                           <h5>Date</h5>
-                          <div class="datepicker-container">
+                          <div className="datepicker-container">
                             <input
                               type="date"
-                              class="datepicker fs-5"
+                              className="datepicker fs-5"
                               placeholder="Select a date"
                               name="dueOn"
                               onChange={(e) => setDueOn(e.target.value)}
                               required
                             />
-                            {/* <img src="/calendar.png" class="calendar-icon"/> */}
+                            {/* <img src="/calendar.png" className="calendar-icon"/> */}
                           </div>
                           <div className="submit-form-section">
                             <button
@@ -225,7 +248,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                   </div>
                 </div>
                 )}
-                <div class={'col-md-' + (!donePage ? '5' : '9') + ' todo-buttons'}>
+                <div className={'col-md-' + (!donePage ? '5' : '9') + ' todo-buttons'}>
                   <div
                     className="d-flex flex-column justify-content-center align-items-center pt-5"
                     style={{ height: "90vh" }}
@@ -239,9 +262,10 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                       <img src="/red-folder.png" alt="To-Do" />
                       <div className="button-text">To-Do</div>
                     </button>
-                    <button className="btn btn-link p-0 fs-2">
+                    <button className="btn btn-link p-0 fs-2" onClick={handleShowModal}>
                       <img src="/filter.png" alt="Filter" />
                     </button>
+                    <TagFilterModal showModal={showModal} onClose={handleCloseModal} />
                   </div>
                 </div>
               </div>

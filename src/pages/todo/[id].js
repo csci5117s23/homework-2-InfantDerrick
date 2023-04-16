@@ -51,9 +51,13 @@ export default function TodoId() {
     });
   }, [isLoaded]);
   const handleUpdateTags = (tagsToAdd) => {
-    setTags([...tags, tagsToAdd]);
-    setShowNewTag(false);
-    setNewTag(null);
+    if(!tags.includes(tagsToAdd)){
+      setTags([...tags, tagsToAdd]);
+      setShowNewTag(false);
+      setNewTag(null);
+      return true;
+    }
+    return false;
   };
 
   const handleNewTag = () => {

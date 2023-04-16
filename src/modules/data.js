@@ -1,16 +1,22 @@
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL
 
 export async function getTodo(itemId, authToken){
-  const response = await fetch(`${baseUrl}/todos?_id=${itemId}`, {
+  const res = await fetch(`${baseUrl}/todos?_id=${itemId}`, {
     'method': 'GET',
     'headers': {'Authorization': 'Bearer ' + authToken}
   });
-  const data = await response.json();
-  return data;
+  return processData(res);
 }
 
 export async function postTodo(data, authToken){
-  const response = await fetch(`${baseUrl}/todos`, {
+  let tagInfo = await getAllTags(data.uid, authToken);
+  let tags = tagInfo.map(tag => tag.tag);
+  let newTags = data.tags.filter(tag => !tags.includes(tag));
+  newTags.map(async (tag) => await postTag({
+    uid: data.uid,
+    tag: tag
+  }, authToken));
+  const res = await fetch(`${baseUrl}/todos`, {
     'method': 'POST',
     'headers': {
       'Authorization': 'Bearer ' + authToken,
@@ -18,29 +24,28 @@ export async function postTodo(data, authToken){
     },
     'body': JSON.stringify(data)
   });
-  return response;
+  return res;
 }
 
 export async function getAllTodos(userId, authToken){
-  const response = await fetch(`${baseUrl}/todos?uid=${userId}&done=false`, {
+  const res = await fetch(`${baseUrl}/todos?uid=${userId}&done=false`, {
     'method': 'GET',
     'headers': {'Authorization': 'Bearer ' + authToken}
   });
-  const data = await response.json();
-  return data;
+  
+  return processData(res);
 }
 
 export async function getAllDoneTodos(userId, authToken){
-  const response = await fetch(`${baseUrl}/todos?uid=${userId}&done=true`, {
+  const res = await fetch(`${baseUrl}/todos?uid=${userId}&done=true`, {
     'method': 'GET',
     'headers': {'Authorization': 'Bearer ' + authToken}
   });
-  const data = await response.json();
-  return data;
+  return processData(res);
 }
 
 export async function updateTodo(data, itemId, authToken){
-  const response = fetch(`${baseUrl}/updateTodo?_id=${itemId}`, {
+  const res = fetch(`${baseUrl}/updateTodo?_id=${itemId}`, {
     'method': 'PUT',
     'headers': {
       'Authorization': 'Bearer ' + authToken,
@@ -48,7 +53,14 @@ export async function updateTodo(data, itemId, authToken){
     },
     'body': JSON.stringify(data)
   });
-  return response;
+  return res;
+}
+export async function test(){
+  const res = await fetch(`${baseUrl}/test`, {
+    'method': 'GET'
+  });
+  const data = await res.json();
+  return data;
 }
 
 export async function toggleTodoDoneness(state, itemId, authToken){
@@ -56,4 +68,41 @@ export async function toggleTodoDoneness(state, itemId, authToken){
   data.done = !state;
   console.log(data)
   return updateTodo(data, itemId, authToken);
+}
+
+export async function getAllTags(userId, authToken){
+  const res = await fetch(`${baseUrl}/tags?uid=${userId}`, {
+    'method': 'GET',
+    'headers': {'Authorization': 'Bearer ' + authToken}
+  });
+  return processData(res);
+}
+export async function postTag(data, authToken){
+  const res = await fetch(`${baseUrl}/tags`, {
+    'method': 'POST',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    },
+    'body': JSON.stringify(data)
+  });
+  return res;
+}
+
+export async function getAllTodosBasedOnATag(userId, tag, authToken){
+  const data = await getAllTodos(userId, authToken);
+  return data.filter(x => x.tags.includes(tag));
+}
+const processData = (res) => {
+  const contentType = res.headers.get("content-type");
+  if (contentType && contentType.indexOf("application/json") !== -1) {
+    return res.json().then(data => {
+      return data;
+    });
+  } else {
+    if(res.status === 403) return '403';
+    return res.text().then(text => {
+      return text;
+    });
+  }
 }

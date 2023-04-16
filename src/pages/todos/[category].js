@@ -8,12 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Whiteboard from '@/components/Whiteboard'
 
-import { postTodo, getAllTodos, toggleTodoDoneness} from '@/modules/data'
+import { postTodo, getAllTodosBasedOnATag, toggleTodoDoneness, test} from '@/modules/data'
 
-export default function Todo() {
+export default function TodoCatergory() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { user } = useUser();
   const router = useRouter();
+  const { category } = router.query;
   const [ todos, setTodos ]= useState([]);
   async function handleNewTodo(data){
     data.uid = userId;
@@ -29,22 +30,22 @@ export default function Todo() {
     async function process() {
       if (userId) { 
         const token = await getToken({ template: "codehooks" });
-        return getAllTodos(userId, token)
+        return getAllTodosBasedOnATag(userId, category, token)
       }
       return [];
     }
     process().then((result) => {
-      setTodos(result);
+      if(result === '403') router.push('/403');
+      else setTodos(result);
     });
   }, [isLoaded]); 
   async function getAllTodosWithUserNameEstablished(){
     const token = await getToken({ template: "codehooks" });
-    return getAllTodos(userId, token)
+    return getAllTodosBasedOnATag(userId, category, token)
   }
   if (!isLoaded) return <></>;
   else if (isLoaded && !userId) router.push("/");
   else{
-   
     return (
       <>
         <Head>
@@ -55,7 +56,7 @@ export default function Todo() {
         </Head>
         <div className="container-fluid">
           <div className="whiteboard">
-            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete}/>
+            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete} defaultTag={[category]}/>
           </div>
         </div>
       </>

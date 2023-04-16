@@ -2,8 +2,8 @@ import { UserButton } from "@clerk/nextjs";
 
 export default function StickyNote({name}){
   return(
-    <div class="sticky-note-container text-center">
-    <div class="sticky-note-text">
+    <div className="sticky-note-container text-center">
+    <div className="sticky-note-text">
       <h2>
         {name}'s Board{" "}
         <div className="user-button">
