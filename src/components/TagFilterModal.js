@@ -3,7 +3,7 @@ import { useAuth } from '@clerk/nextjs';
 import Tag from "@/components/Tag";
 
 import {randomColor} from "@/modules/util";
-import { getAllTags } from '@/modules/data'
+import { getAllTags, editTagForAll} from '@/modules/data'
 
 export default function TagFilterModal({ showModal, onClose }) {
   const [tags, setTags] = useState([]);
@@ -25,6 +25,12 @@ export default function TagFilterModal({ showModal, onClose }) {
     });
   }, [isLoaded, showModal]);
 
+  const handleTagEdit = async (id, originalTag, updatedTag) => {
+   editTagForAll(userId, id, originalTag, updatedTag, await getToken({ template: "codehooks" })).then((res) => {return res.json()}).then( async (data) => setTags(await getAllTags(userId, await getToken({ template: "codehooks" }))))
+  }
+  const handleTagDelete = (id) => {
+
+  }
   return (
     <>
       {showModal && (
@@ -53,11 +59,15 @@ export default function TagFilterModal({ showModal, onClose }) {
                 <div className="d-flex flex-wrap">
                   {tags.map((tag) => (
                     <Tag
-                      key={tag.uid}
+                      key={tag._id}
                       color= {randomColor()}
                       tag={tag.tag}
+                      onTagEdit={(updatedTag) =>
+                        handleTagEdit(tag._id, tag.tag, updatedTag)
+                      }
+                      onTagDelete={() => handleTagDelete(tag._id)}
                       active={false}
-                      editable={false}
+                      editable={tag.tag !=='High Priority' && tag.tag !== 'Low Priority'}
                     />
                   ))}
                 </div>

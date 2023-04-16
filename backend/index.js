@@ -49,6 +49,14 @@ async function update(req, res) {
   console.log(data);
   res.json(data);
 }
+app.put('/updateTag', updateTag)
+async function updateTag(req, res){
+  const db = await Datastore.open();
+  console.log(req.body);
+  const data = await db.replaceOne('tags', req.query._id, req.body);
+  console.log(data);
+  res.json(data);
+}
 app.get("/test", (req, res) => {
     res.json({result: "you did it!"});
 });

@@ -2,14 +2,8 @@ import Tag from '@/components/Tag'
 import { randomColor } from "@/modules/util";
 import { useRouter } from "next/router";
 
-export default function ToDoCard({title, description, selectedOption, todoid, handleOptionChange, tags, dueOn, donePage}) {
+export default function ToDoCard({title, description, selectedOption, todoid, handleOptionChange, tags, dueOn, donePage=false, handleTagClick}) {
   const router = useRouter();
-  const handleTagClick = (tag) => {
-    router.push('/todos/' + tag).then(() => {
-      router.reload();
-    });
-    
-  }
   return (
     <div className="col-md-6">
       <div className="card todo-card">

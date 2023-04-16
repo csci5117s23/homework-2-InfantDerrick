@@ -8,13 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Whiteboard from '@/components/Whiteboard'
 
-import { postTodo, getAllDoneBasedOnATag, toggleTodoDoneness, test} from '@/modules/data'
-
-export default function DoneCatergory() {
+export default function TodoBase({donePage=false, category=null, postTodo, getAll, toggleTodoDoneness}) {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { user } = useUser();
   const router = useRouter();
-  const { category } = router.query;
   const [ todos, setTodos ]= useState([]);
   async function handleNewTodo(data){
     data.uid = userId;
@@ -26,11 +23,11 @@ export default function DoneCatergory() {
     const token = await getToken({ template: "codehooks" });
     toggleTodoDoneness(false, todoid, token).then((res) => {return res.json()}).then((data) => { console.log(data); return getAllTodosWithUserNameEstablished()}).then((data) => setTodos(data))
   }
-  useEffect(() => {
+  const loadState = React.useCallback(async () => {
     async function process() {
       if (userId) { 
         const token = await getToken({ template: "codehooks" });
-        return getAllDoneBasedOnATag(userId, category, token)
+        return getAll(userId, category, token)
       }
       return [];
     }
@@ -38,10 +35,13 @@ export default function DoneCatergory() {
       if(result === '403') router.push('/403');
       else setTodos(result);
     });
-  }, [isLoaded]); 
+  }, [isLoaded]);
+  useEffect(() => {
+    loadState();
+  }, [loadState]); 
   async function getAllTodosWithUserNameEstablished(){
     const token = await getToken({ template: "codehooks" });
-    return getAllDoneBasedOnATag(userId, category, token)
+    return getAll(userId, category, token)
   }
   if (!isLoaded) return <></>;
   else if (isLoaded && !userId) router.push("/");
@@ -56,7 +56,7 @@ export default function DoneCatergory() {
         </Head>
         <div className="container-fluid">
           <div className="whiteboard">
-            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} donePage todos={todos} complete={complete} defaultTag={[category]}/>
+            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete} reloadState={loadState} donePage={donePage} defaultTag={category ? [category] : []}/>
           </div>
         </div>
       </>

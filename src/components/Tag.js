@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, active, clickable, onTagClick}) {
+export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, active, clickable, onTagClick=()=>{}}) {
   const [editing, setEditing] = useState(active);
   const [tagText, setTagText] = useState(tag);
   

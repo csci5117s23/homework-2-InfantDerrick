@@ -11,7 +11,7 @@ import {randomColor} from "@/modules/util";
 
 
 
-export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[]}) {
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], reloadState}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   
@@ -27,6 +27,9 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
   const [showNewTag, setShowNewTag] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
+  const handleTagClick = (tag) => {
+    router.push('/' + (donePage?'done':'todos') + '/' + tag).then(() => reloadState())
+  }
   const handleUpdateTags = (tagsToAdd) => {
     if(!tags.includes(tagsToAdd)){
       setTags([...tags, tagsToAdd]);
@@ -37,10 +40,6 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
     console.log(tags);
     return false;
   };
-
-  const handleTagClick = (tag) => {
-    router.push('/todos/' + tag);
-  }
   const handleNewTag = () => {
     setShowNewTag(true);
     setNewTag(null);
@@ -99,6 +98,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
 
   const handleCloseModal = () => {
     setShowModal(false);
+    reloadState();
   };
   return (
     <>
@@ -120,6 +120,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                         tags={todo.tags}
                         dueOn={todo.dueOn}
                         donePage={donePage}
+                        handleTagClick={handleTagClick}
                       />
                     );
                   }
