@@ -81,11 +81,11 @@ export default function TodoBase({
   else {
     return (
       <>
-        {isLoading ? (
+        {isLoading && (
           <div className="loader-container">
             <Loader />
           </div>
-        ) : (
+        )}
           <>
             <Head>
               <title>carpe diem</title>
@@ -112,7 +112,6 @@ export default function TodoBase({
               </div>
             </div>
           </>
-        )}
       </>
     );
   }
