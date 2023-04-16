@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, active, clickable, onTagClick=()=>{}}) {
+export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, active, clickable, onTagClick=()=>{console.log('hehe')}}) {
   const [editing, setEditing] = useState(active);
   const [tagText, setTagText] = useState(tag);
   
@@ -15,11 +15,13 @@ export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, acti
   return (
     <div
       className={`btn btn-${color} m-1 ${editable ? "flex-grow-1" : ""}`}
-      style={{ borderRadius: "20px" }} onClick={() => onTagClick(tag)}
+      style={{ borderRadius: "20px" }} onClick={(e) => {
+        if (!e.target.classList.contains("fa"))
+          onTagClick(tag);
+      }}
     >
       {editing ? (
         <>
-        
           <input
             type="text"
             className="form-control form-control-sm"
@@ -27,7 +29,10 @@ export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, acti
             onChange={(event) => setTagText(event.target.value)}
             autoFocus
           />
-          <span className="fa fa-check ml-1" onClick={handleEdit} />
+          <span className="fa fa-check ml-1" onClick={(e) => {
+            e.stopPropagation();
+            handleEdit();
+          }} />
           <span className="fa fa-times" onClick={onTagDelete} />
         </>
       ) : (

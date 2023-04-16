@@ -123,6 +123,24 @@ export async function editTagForAll(userId, tagid, originalTag, updatedTag, auth
   });
   return res;
 }
+export async function deleteTagForAll(userId, tagid, originalTag, authToken){
+  const done = await getAllDoneBasedOnATag(userId, originalTag, authToken);
+  const todo = await getAllTodosBasedOnATag(userId, originalTag, authToken);
+  const all = [...done, ...todo];
+  console.log(all);
+  all.map(item => { 
+    let newTags = item.tags.filter((tag) => tag != originalTag);
+    return {...item, tags: newTags}
+  }).map(async (item) => await updateTodo(item, item._id, authToken));
+  const res = fetch(`${baseUrl}/removeTag?_id=${tagid}`, {
+    'method': 'PUT',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    }
+  });
+  return res;
+}
 const processData = (res) => {
   const contentType = res.headers.get("content-type");
   if (contentType && contentType.indexOf("application/json") !== -1) {

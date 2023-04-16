@@ -8,10 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Whiteboard from '@/components/Whiteboard'
 
-export default function TodoBase({donePage=false, category=null, postTodo, getAll, toggleTodoDoneness}) {
+export default function TodoBase({donePage=false, category=null, postTodo=() => {}, getAll, toggleTodoDoneness}) {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { user } = useUser();
   const router = useRouter();
+  category = router.query.category;
+  console.log('router view: ' + router.query.category);
   const [ todos, setTodos ]= useState([]);
   async function handleNewTodo(data){
     data.uid = userId;
@@ -24,6 +26,7 @@ export default function TodoBase({donePage=false, category=null, postTodo, getAl
     toggleTodoDoneness(false, todoid, token).then((res) => {return res.json()}).then((data) => { console.log(data); return getAllTodosWithUserNameEstablished()}).then((data) => setTodos(data))
   }
   const loadState = React.useCallback(async () => {
+    console.log('i have been summoned -> ' + category);
     async function process() {
       if (userId) { 
         const token = await getToken({ template: "codehooks" });
@@ -31,11 +34,12 @@ export default function TodoBase({donePage=false, category=null, postTodo, getAl
       }
       return [];
     }
-    process().then((result) => {
+    await process().then((result) => {
       if(result === '403') router.push('/403');
       else setTodos(result);
+      // console.log(router.query + ": " + result)
     });
-  }, [isLoaded]);
+  }, [isLoaded, category, router.query]);
   useEffect(() => {
     loadState();
   }, [loadState]); 
@@ -56,7 +60,7 @@ export default function TodoBase({donePage=false, category=null, postTodo, getAl
         </Head>
         <div className="container-fluid">
           <div className="whiteboard">
-            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete} reloadState={loadState} donePage={donePage} defaultTag={category ? [category] : []}/>
+            <Whiteboard name={user.firstName} handleNewTodo={handleNewTodo} todos={todos} complete={complete} reloadState={loadState} donePage={donePage} defaultTag={category ? [category] : []} router={router}/>
           </div>
         </div>
       </>

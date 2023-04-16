@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useRouter } from "next/router";
 
 import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
@@ -11,24 +10,30 @@ import {randomColor} from "@/modules/util";
 
 
 
-export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], reloadState}) {
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], router, reloadState}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  
+  console.log(todos);
   const [username, setUsername] = useState(name);
+  const [defaultTags, setDefaultTags] = useState(defaultTag)
   const [dueOn, setDueOn] = useState(new Date());
-  const [tags, setTags] = useState((defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority') ? [] : defaultTag);
+  const [tags, setTags] = useState([]);
   const [isHighPriority, setIsHighPriority] = useState(true);
-  // if(defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'){
+  // if(defaultTags[0] == 'High Priority' || defaultTags[0] == 'Low Priority'){
   //   setTags([]);
-  //   setIsHighPriority(defaultTag[0] == 'High Priority');
+  //   setIsHighPriority(defaultTags[0] == 'High Priority');
   // }
+  useEffect(() => {
+    setDefaultTags(defaultTag);
+    setTags((defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority') ? [] : defaultTag)
+    console.log('updated' + tags);
+  }, [reloadState, username])
   const [newTag, setNewTag] = useState("");
   const [showNewTag, setShowNewTag] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
-  const handleTagClick = (tag) => {
-    router.push('/' + (donePage?'done':'todos') + '/' + tag).then(() => reloadState())
+  const handleTagClick = async (tag) => {
+    await router.push('/' + (donePage?'done':'todos') + '/' + tag);
+    // router.reload();
   }
   const handleUpdateTags = (tagsToAdd) => {
     if(!tags.includes(tagsToAdd)){
@@ -163,7 +168,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                 color: "#670F0F",
                                 border: "none",
                               }}
-                              disabled={defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'}
+                              disabled={defaultTags[0] == 'High Priority' || defaultTags[0] == 'Low Priority'}
                               onClick={handleHighPriorityClick}
                             >
                               High Priority
@@ -177,7 +182,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                 color: "#302E2E",
                                 border: "none",
                               }}
-                              disabled={defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority'}
+                              disabled={defaultTags[0] == 'High Priority' || defaultTags[0] == 'Low Priority'}
                               onClick={handleLowPriorityClick}
                             >
                               Low Priority
@@ -197,7 +202,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                                   handleTagEdit(index, updatedTag)
                                 }
                                 onTagDelete={() => handleTagDelete(index)}
-                                editable={tag!=defaultTag[0]}
+                                editable={tag!=defaultTags[0]}
                               />
                             ))}
                             <div className="m-1"> 
@@ -266,7 +271,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                     <button className="btn btn-link p-0 fs-2" onClick={handleShowModal}>
                       <img src="/filter.png" alt="Filter" />
                     </button>
-                    <TagFilterModal showModal={showModal} onClose={handleCloseModal} />
+                    <TagFilterModal showModal={showModal} onClose={handleCloseModal} handleTagClick={handleTagClick} />
                   </div>
                 </div>
               </div>

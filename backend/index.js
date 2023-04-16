@@ -57,6 +57,14 @@ async function updateTag(req, res){
   console.log(data);
   res.json(data);
 }
+app.put('/removeTag', removeTag)
+async function removeTag(req, res){
+  const db = await Datastore.open();
+  console.log(req.body);
+  const data = await db.removeOne('tags', req.query._id);
+  console.log(data);
+  res.json(data);
+}
 app.get("/test", (req, res) => {
     res.json({result: "you did it!"});
 });

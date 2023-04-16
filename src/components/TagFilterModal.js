@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { useAuth } from '@clerk/nextjs';
 import Tag from "@/components/Tag";
 
 import {randomColor} from "@/modules/util";
-import { getAllTags, editTagForAll} from '@/modules/data'
+import { getAllTags, editTagForAll, deleteTagForAll} from '@/modules/data'
 
-export default function TagFilterModal({ showModal, onClose }) {
+export default function TagFilterModal({ showModal, onClose, handleTagClick }) {
   const [tags, setTags] = useState([]);
   const { isLoaded, userId, getToken } = useAuth();
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function TagFilterModal({ showModal, onClose }) {
   const handleTagEdit = async (id, originalTag, updatedTag) => {
    editTagForAll(userId, id, originalTag, updatedTag, await getToken({ template: "codehooks" })).then((res) => {return res.json()}).then( async (data) => setTags(await getAllTags(userId, await getToken({ template: "codehooks" }))))
   }
-  const handleTagDelete = (id) => {
-
+  const handleTagDelete = async (id, originalTag) => {
+    deleteTagForAll(userId, id, originalTag, await getToken({ template: "codehooks" })).then((res) => {return res.json()}).then( async (data) => setTags(await getAllTags(userId, await getToken({ template: "codehooks" }))));
   }
   return (
     <>
@@ -65,9 +65,13 @@ export default function TagFilterModal({ showModal, onClose }) {
                       onTagEdit={(updatedTag) =>
                         handleTagEdit(tag._id, tag.tag, updatedTag)
                       }
-                      onTagDelete={() => handleTagDelete(tag._id)}
+                      onTagDelete={() => handleTagDelete(tag._id, tag.tag)}
                       active={false}
                       editable={tag.tag !=='High Priority' && tag.tag !== 'Low Priority'}
+                      onTagClick={(tag) => {
+                        handleTagClick(tag);
+                        onClose();
+                      }}
                     />
                   ))}
                 </div>

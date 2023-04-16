@@ -23,8 +23,8 @@
         "done": false,
         "tags": [
           "High Priority",
-          "discord",
-          "haven"
+          "haven",
+          "discorduwu"
         ],
         "createdOn": "2023-04-15T23:27:05.686Z",
         "dueOn": "2023-04-22"
@@ -87,8 +87,7 @@
         "dueOn": "2023-04-16T05:00:00.000Z",
         "createdOn": "2023-04-16T03:42:46.998Z",
         "tags": [
-          "High Priority",
-          "satx"
+          "High Priority"
         ],
         "done": false,
         "description": "he needs to MONCH",
@@ -101,8 +100,7 @@
         "createdOn": "2023-04-16T03:43:38.183Z",
         "tags": [
           "High Priority",
-          "discord",
-          "satx"
+          "discorduwu"
         ],
         "done": false,
         "description": "Once upon a time babyyyyy",
@@ -121,9 +119,9 @@
         "_id": "187873c8337-0dgy19le0d0r4t"
       },
       "187873c8342-ia3xak9s3bjxp6": {
+        "_id": "187873c8342-ia3xak9s3bjxp6",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "asd",
-        "_id": "187873c8342-ia3xak9s3bjxp6"
+        "tag": "asd"
       },
       "187873e63d4-jrgyqymnlx5ygq": {
         "_id": "187873e63d4-jrgyqymnlx5ygq",
@@ -150,25 +148,15 @@
         "tag": "whatever",
         "_id": "18787c20c18-ab9t5aebofb5sv"
       },
-      "18787cb583f-xo4eox8o7jemi2": {
-        "_id": "18787cb583f-xo4eox8o7jemi2",
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "csci5120"
-      },
       "18787cb5843-suol2o0n4byqux": {
         "_id": "18787cb5843-suol2o0n4byqux",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
         "tag": "csci5117"
       },
-      "18788287ad2-00xh6ie6vwjgv7": {
-        "_id": "18788287ad2-00xh6ie6vwjgv7",
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "satx"
-      },
       "187882942c3-nqw6hjt8tu1gjo": {
+        "_id": "187882942c3-nqw6hjt8tu1gjo",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "discord",
-        "_id": "187882942c3-nqw6hjt8tu1gjo"
+        "tag": "discorduwu"
       }
     }
   ],
