@@ -45,7 +45,13 @@ export async function getAllDoneTodos(userId, authToken){
 }
 
 export async function updateTodo(data, itemId, authToken){
-  console.log(data);
+  let tagInfo = await getAllTags(data.uid, authToken);
+  let tags = tagInfo.map(tag => tag.tag);
+  let newTags = data.tags.filter(tag => !tags.includes(tag));
+  newTags.map(async (tag) => await postTag({
+    uid: data.uid,
+    tag: tag
+  }, authToken));
   const res = fetch(`${baseUrl}/updateTodo?_id=${itemId}`, {
     'method': 'PUT',
     'headers': {

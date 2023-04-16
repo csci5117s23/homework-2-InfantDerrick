@@ -10,10 +10,9 @@ import {randomColor} from "@/modules/util";
 
 
 
-export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], router, reloadState}) {
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], router, reloadState, setIsLoading}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  console.log(todos);
   const [username, setUsername] = useState(name);
   const [defaultTags, setDefaultTags] = useState(defaultTag)
   const [dueOn, setDueOn] = useState(new Date());
@@ -24,16 +23,18 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
   //   setIsHighPriority(defaultTags[0] == 'High Priority');
   // }
   useEffect(() => {
+    setIsLoading(true);
     setDefaultTags(defaultTag);
     setTags((defaultTag[0] == 'High Priority' || defaultTag[0] == 'Low Priority') ? [] : defaultTag)
-    console.log('updated' + tags);
+    setIsLoading(false);
   }, [reloadState, username])
   const [newTag, setNewTag] = useState("");
   const [showNewTag, setShowNewTag] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const handleTagClick = async (tag) => {
+    setIsLoading(true);
     await router.push('/' + (donePage?'done':'todos') + '/' + tag);
-    // router.reload();
+    setIsLoading(false);
   }
   const handleUpdateTags = (tagsToAdd) => {
     if(!tags.includes(tagsToAdd)){
@@ -78,11 +79,14 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
   const [selectedOption, setSelectedOption] = useState("");
 
   async function handleOptionChange(option){
+    setIsLoading(true);
     setSelectedOption(option);
     await complete(option);
     setSelectedOption('')
+    setIsLoading(false);
   };
   async function handleSubmit(event) {
+    setIsLoading(true);
     event.preventDefault();
     const newTodo = {
       title: task,
@@ -96,6 +100,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
       setIsHighPriority(true);
       setTags([]);
     });
+    setIsLoading(false);
   };
   const handleShowModal = () => {
     setShowModal(true);
@@ -271,7 +276,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                     <button className="btn btn-link p-0 fs-2" onClick={handleShowModal}>
                       <img src="/filter.png" alt="Filter" />
                     </button>
-                    <TagFilterModal showModal={showModal} onClose={handleCloseModal} handleTagClick={handleTagClick} />
+                    <TagFilterModal showModal={showModal} setShowModal={setShowModal} onClose={handleCloseModal} handleTagClick={handleTagClick} setIsLoading={setIsLoading} />
                   </div>
                 </div>
               </div>

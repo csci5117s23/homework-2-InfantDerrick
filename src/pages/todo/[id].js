@@ -10,48 +10,56 @@ import { useRouter } from "next/router";
 import { getTodo, updateTodo } from "@/modules/data";
 import { randomColor } from "@/modules/util";
 import StickyNote from "@/components/StickyNote";
+import Loader from "@/components/Loader";
 
 export default function TodoId() {
   const { isLoaded, userId, getToken } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
   const router = useRouter();
   const { id } = router.query;
   const [initData, setInitData] = useState(null);
   const [todoid, setTodoId] = useState(id);
-  const [title, setTitle] = useState('Meow');
-  const [description, setDescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.');
-  const [tags, setTags] = useState([])
-  const [dueOn, setDueOn] = useState((new Date()).toISOString().slice(0, 10))
+  const [title, setTitle] = useState("Meow");
+  const [description, setDescription] = useState(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor."
+  );
+  const [tags, setTags] = useState([]);
+  const [dueOn, setDueOn] = useState(new Date().toISOString().slice(0, 10));
   const [done, setDone] = useState(false);
   const [newTag, setNewTag] = useState("");
-  const [createdOn, setCreatedOn] = useState((new Date()).toISOString().slice(0, 10))
+  const [createdOn, setCreatedOn] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
   const [showNewTag, setShowNewTag] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     async function process() {
-      if (userId) { 
+      if (userId) {
         const token = await getToken({ template: "codehooks" });
         return getTodo(id, token);
       }
       return [];
     }
     process().then((result) => {
-      if(userId && result.length == 0) router.push('/404')
-      else if(userId){
-        result = result[0]
+      if (userId && result.length == 0) router.push("/404");
+      else if (userId) {
+        result = result[0];
         setInitData(result);
         setTodoId(result._id);
         setTitle(result.title);
         setDescription(result.description);
         setTags(result.tags);
-        setDueOn((new Date(result.dueOn)).toISOString().slice(0, 10));
+        setDueOn(new Date(result.dueOn).toISOString().slice(0, 10));
         setDone(result.done);
         setCreatedOn(result.createdOn);
-        console.log(result)
+        console.log(result);
       }
+      setIsLoading(false);
     });
   }, [isLoaded]);
   const handleUpdateTags = (tagsToAdd) => {
-    if(!tags.includes(tagsToAdd)){
+    if (!tags.includes(tagsToAdd)) {
       setTags([...tags, tagsToAdd]);
       setShowNewTag(false);
       setNewTag(null);
@@ -82,7 +90,7 @@ export default function TodoId() {
   };
 
   async function handleUpdate() {
-    console.log(tags);
+    setIsLoading(true);
     let newObj = {
       _id: todoid,
       uid: userId,
@@ -91,32 +99,29 @@ export default function TodoId() {
       done: done,
       tags: tags,
       createdOn: createdOn,
-      dueOn: dueOn
-    }
+      dueOn: dueOn,
+    };
     const token = await getToken({ template: "codehooks" });
-    updateTodo(newObj, todoid, token).then((res) => {return res.json()}).then((data) => {
-      console.log(data);
-      router.push('/todos');
-    });
+    updateTodo(newObj, todoid, token)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        router.push("/todos");
+      });
+    setIsLoading(false);
   }
   const handleRedirect = () => {
-    router.push('/todos')
-  }
-  // useEffect(() => {
-  //   async function process() {
-  //     if (userId) { 
-  //       const token = await getToken({ template: "codehooks" });
-  //       return getTodo(id, token);
-  //     }
-  //     return [];
-  //   }
-  //   process().then((result) => {
-  //     console.log(result);
-  //   });
-  // }, [isLoaded]);
+    router.push("/todos");
+  };
   if (!isLoaded) return <></>;
   if (!userId) router.push("/");
-  return (
+  return isLoading ? (
+    <div className="loader-container">
+      <Loader />
+    </div>
+  ) : (
     <>
       <Head>
         <title>carpe diem - Task</title>
@@ -124,34 +129,35 @@ export default function TodoId() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/carpe-diem-logo.png" />
       </Head>
-      <div class="container-fluid todo-card-container" style={{height: '90vh'}}>
-          <StickyNote name={user.firstName}/>
-          <BigToDoCard
-              todoid={todoid}
-              title={title}
-              description={description}
-              tags={tags}
-              dueOn={dueOn}
-              randomColor={randomColor}
-              done={done}
-              setTitle={setTitle}
-              setDescription={setDescription}
-              setTags={setTags}
-              setDueOn={setDueOn}
-              setDone={setDone}
-              handleTagEdit={handleTagEdit}
-              handleTagDelete={handleTagDelete}
-              handleDeletNewTag={handleDeletNewTag}
-              handleUpdateTags={handleUpdateTags}
-              handleNewTag={handleNewTag}
-              showNewTag={showNewTag}
-              newTag={newTag}
-              handleUpdate={handleUpdate}
-              handleRedirect={handleRedirect}
-          />
+      <div
+        class="container-fluid todo-card-container"
+        style={{ height: "90vh" }}
+      >
+        <StickyNote name={user.firstName} />
+        <BigToDoCard
+          todoid={todoid}
+          title={title}
+          description={description}
+          tags={tags}
+          dueOn={dueOn}
+          randomColor={randomColor}
+          done={done}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setTags={setTags}
+          setDueOn={setDueOn}
+          setDone={setDone}
+          handleTagEdit={handleTagEdit}
+          handleTagDelete={handleTagDelete}
+          handleDeletNewTag={handleDeletNewTag}
+          handleUpdateTags={handleUpdateTags}
+          handleNewTag={handleNewTag}
+          showNewTag={showNewTag}
+          newTag={newTag}
+          handleUpdate={handleUpdate}
+          handleRedirect={handleRedirect}
+        />
       </div>
-
-      
     </>
   );
 }
