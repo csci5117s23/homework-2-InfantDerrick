@@ -71,7 +71,6 @@ export default function TodoBase({
   }, [isLoaded, category, router.query]);
   useEffect(() => {
     loadState();
-    setIsLoading(false);
   }, [loadState]);
   async function getAllTodosWithUserNameEstablished() {
     const token = await getToken({ template: "codehooks" });
