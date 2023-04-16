@@ -5,14 +5,15 @@ import Tag from '@/components/Tag'
 import ToDoCard from '@/components/ToDoCard'
 import StickyNote from "@/components/StickyNote";
 import TagFilterModal from "@/components/TagFilterModal";
+import Loader from "@/components/Loader";
 
 import {randomColor} from "@/modules/util";
 
 
-
-export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], router, reloadState, setIsLoading}) {
+export default function Whiteboard({name, handleNewTodo, todos, complete, donePage, defaultTag=[], router, reloadState}) {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState(name);
   const [defaultTags, setDefaultTags] = useState(defaultTag)
   const [dueOn, setDueOn] = useState(new Date());
@@ -106,12 +107,18 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (newPage) => {
     setShowModal(false);
+    if(newPage) handleTagClick(newPage);
     reloadState();
   };
   return (
     <>
+      {isLoading && (
+          <div className="loader-container">
+            <Loader />
+          </div>
+      )}
       <div className="container-fluid todo-card-container">
         <StickyNote name={username}/>
         <div className="row">

@@ -84,6 +84,13 @@ export async function getAllTags(userId, authToken){
   });
   return processData(res);
 }
+export async function getTag(userId, tag, authToken){
+  const res = await fetch(`${baseUrl}/tags?uid=${userId}&tag=${tag}`, {
+    'method': 'GET',
+    'headers': {'Authorization': 'Bearer ' + authToken}
+  });
+  return processData(res);
+}
 export async function postTag(data, authToken){
   const res = await fetch(`${baseUrl}/tags`, {
     'method': 'POST',
@@ -98,10 +105,14 @@ export async function postTag(data, authToken){
 
 export async function getAllTodosBasedOnATag(userId, tag, authToken){
   const data = await getAllTodos(userId, authToken);
+  const tagData = await getTag(userId, tag, authToken);
+  if(tagData.length == 0) return '404';
   return data.filter(x => x.tags.includes(tag));
 }
 export async function getAllDoneBasedOnATag(userId, tag, authToken){
   const data = await getAllDoneTodos(userId, authToken);
+  const tagData = await getTag(userId, tag, authToken);
+  if(tagData.length == 0) return '404';
   return data.filter(x => x.tags.includes(tag));
 }
 export async function editTagForAll(userId, tagid, originalTag, updatedTag, authToken){

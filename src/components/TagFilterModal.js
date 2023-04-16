@@ -1,6 +1,8 @@
 import React, { useState, useEffect, use } from "react";
 import { useAuth } from "@clerk/nextjs";
+
 import Tag from "@/components/Tag";
+import Loader from "@/components/Loader";
 
 import { randomColor } from "@/modules/util";
 import { getAllTags, editTagForAll, deleteTagForAll } from "@/modules/data";
@@ -8,11 +10,12 @@ import { getAllTags, editTagForAll, deleteTagForAll } from "@/modules/data";
 export default function TagFilterModal({
   showModal,
   onClose,
-  handleTagClick,
-  setIsLoading,
+  handleTagClick
 }) {
   const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState(null);
   const { isLoaded, userId, getToken } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function process() {
       if (userId) {
@@ -21,12 +24,14 @@ export default function TagFilterModal({
       }
       return [];
     }
+    setIsLoading(true);
     process().then((result) => {
       if (result === "403") router.push("/403");
       else {
         setTags(result);
         console.log(tags);
       }
+      setIsLoading(false);
     });
   }, [isLoaded, showModal]);
 
@@ -47,6 +52,7 @@ export default function TagFilterModal({
           await getAllTags(userId, await getToken({ template: "codehooks" }))
         )
       );
+    setNewTag(updatedTag);
     setIsLoading(false);
   };
   const handleTagDelete = async (id, originalTag) => {
@@ -69,6 +75,11 @@ export default function TagFilterModal({
   };
   return (
     <>
+    {isLoading && (
+          <div className="loader-container">
+            <Loader />
+          </div>
+        )}
       {showModal && (
         <>
           <div
@@ -86,7 +97,7 @@ export default function TagFilterModal({
                     className="close"
                     data-dismiss="modal"
                     aria-label="Close"
-                    onClick={onClose}
+                    onClick={() => onClose(newTag)}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>

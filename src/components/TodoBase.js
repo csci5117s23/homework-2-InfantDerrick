@@ -42,7 +42,7 @@ export default function TodoBase({
   async function complete(todoid) {
     setIsLoading(true);
     const token = await getToken({ template: "codehooks" });
-    toggleTodoDoneness(false, todoid, token)
+    toggleTodoDoneness(donePage, todoid, token)
       .then((res) => {
         return res.json();
       })
@@ -64,12 +64,15 @@ export default function TodoBase({
       return [];
     }
     await process().then((result) => {
+      console.log(result);
       if (result === "403") router.push("/403");
+      else if(result === "404") router.push('/404');
       else setTodos(result);
       setIsLoading(false);
     });
-  }, [isLoaded, category, router.query, isLoading]);
+  }, [isLoaded, category, router.query]);
   useEffect(() => {
+    setIsLoading(true);
     loadState();
   }, [loadState]);
   async function getAllTodosWithUserNameEstablished() {
@@ -107,7 +110,10 @@ export default function TodoBase({
                   donePage={donePage}
                   defaultTag={category ? [category] : []}
                   router={router}
-                  setIsLoading={setIsLoading}
+                  setIsLoading={(x) => {
+                    // setIsLoading(x);
+                    console.log('Loading: ' + x)
+                  }}
                 />
               </div>
             </div>
