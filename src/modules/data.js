@@ -47,7 +47,7 @@ export async function getAllDoneTodos(userId, authToken){
 export async function updateTodo(data, itemId, authToken, newTag=null){
   let tagInfo = await getAllTags(data.uid, authToken);
   let tags = tagInfo.map(tag => tag.tag);
-  let newTags = data.tags.filter(tag => (!tags.includes(tag) && newTag != null && newTag != tag));
+  let newTags = data.tags.filter(tag => (!tags.includes(tag) && (newTag == null || newTag != tag)));
   newTags.map(async (tag) => await postTag({
     uid: data.uid,
     tag: tag
