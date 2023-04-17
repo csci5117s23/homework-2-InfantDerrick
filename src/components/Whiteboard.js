@@ -158,12 +158,14 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
                           placeholder="Enter task..."
                           className="clear-input fs-1"
                           onChange={(e) => setTask(e.target.value)}
+                          required
                         />
                         <textarea
                           type="text"
                           className="transparent-text-box fs-5"
                           placeholder="Task description..."
                           onChange={(e) => setDescription(e.target.value)}
+                          required
                         ></textarea>
                         <div className="todo-add-categories">
                           <h5>Importance</h5>
