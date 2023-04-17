@@ -37,7 +37,7 @@ export default function TagFilterModal({
 
   const handleTagEdit = async (id, originalTag, updatedTag) => {
     setIsLoading(true);
-    editTagForAll(
+    await editTagForAll(
       userId,
       id,
       originalTag,
@@ -57,7 +57,7 @@ export default function TagFilterModal({
   };
   const handleTagDelete = async (id, originalTag) => {
     setIsLoading(true);
-    deleteTagForAll(
+    await deleteTagForAll(
       userId,
       id,
       originalTag,
@@ -97,7 +97,7 @@ export default function TagFilterModal({
                     className="close"
                     data-dismiss="modal"
                     aria-label="Close"
-                    onClick={() => onClose(newTag)}
+                    onClick={() =>  onClose(newTag)}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
