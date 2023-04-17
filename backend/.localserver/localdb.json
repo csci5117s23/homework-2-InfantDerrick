@@ -7,7 +7,7 @@
         "createdOn": "2023-04-15T23:25:02.660Z",
         "tags": [
           "High Priority",
-          "asd!"
+          "asd"
         ],
         "done": true,
         "description": "sd",
@@ -23,7 +23,7 @@
         "done": false,
         "tags": [
           "High Priority",
-          "discorduwu"
+          "discordu"
         ],
         "createdOn": "2023-04-15T23:27:05.686Z",
         "dueOn": "2023-04-22"
@@ -45,8 +45,7 @@
         "dueOn": "2023-04-15T05:00:00.000Z",
         "createdOn": "2023-04-16T01:50:09.420Z",
         "tags": [
-          "Low Priority",
-          "food!"
+          "Low Priority"
         ],
         "done": true,
         "description": "smhmhmmhmh",
@@ -60,7 +59,7 @@
         "tags": [
           "High Priority",
           "High Priority",
-          "whatever"
+          "whatever ma!"
         ],
         "done": true,
         "description": "i think you should at least",
@@ -72,8 +71,7 @@
         "dueOn": "2023-04-16T05:00:00.000Z",
         "createdOn": "2023-04-16T02:01:03.302Z",
         "tags": [
-          "High Priority",
-          "csci5118"
+          "High Priority"
         ],
         "done": false,
         "description": "one",
@@ -101,8 +99,7 @@
         "description": "Once upon a time babyyyyy",
         "done": true,
         "tags": [
-          "High Priority",
-          "meow"
+          "High Priority"
         ],
         "createdOn": "2023-04-16T03:43:38.183Z",
         "dueOn": "2023-04-16"
@@ -115,7 +112,7 @@
         "done": true,
         "tags": [
           "High Priority",
-          "discorduwu"
+          "discordu"
         ],
         "createdOn": "2023-04-16T09:36:38.677Z",
         "dueOn": "2023-04-16"
@@ -124,8 +121,7 @@
         "dueOn": "2023-04-17T05:00:00.000Z",
         "createdOn": "2023-04-16T11:13:28.085Z",
         "tags": [
-          "High Priority",
-          "meow"
+          "High Priority"
         ],
         "done": true,
         "description": "asdasdasd",
@@ -137,8 +133,7 @@
         "dueOn": "2023-04-17T05:00:00.000Z",
         "createdOn": "2023-04-16T18:23:03.846Z",
         "tags": [
-          "High Priority",
-          "catus"
+          "High Priority"
         ],
         "done": true,
         "description": "meow",
@@ -147,17 +142,16 @@
         "_id": "1878b4e66a7-e3iq4n0xu7btzn"
       },
       "1878b95cf4b-gauzyyfgf5w8ur": {
-        "dueOn": "2023-04-17T05:00:00.000Z",
-        "createdOn": "2023-04-16T19:41:03.690Z",
-        "tags": [
-          "High Priority",
-          "cutie pie"
-        ],
-        "done": false,
-        "description": "I want to huggy my mooki :pleading:",
-        "title": "Huggy",
+        "_id": "1878b95cf4b-gauzyyfgf5w8ur",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "_id": "1878b95cf4b-gauzyyfgf5w8ur"
+        "title": "Huggy",
+        "description": "I want to huggy my mooki :pleading:",
+        "done": false,
+        "tags": [
+          "High Priority"
+        ],
+        "createdOn": "2023-04-16T19:41:03.690Z",
+        "dueOn": "2023-04-17"
       }
     }
   ],
@@ -172,7 +166,7 @@
       "187873c8342-ia3xak9s3bjxp6": {
         "_id": "187873c8342-ia3xak9s3bjxp6",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "asd!"
+        "tag": "asd"
       },
       "187873e63d4-jrgyqymnlx5ygq": {
         "_id": "187873e63d4-jrgyqymnlx5ygq",
@@ -189,15 +183,10 @@
         "tag": "Low Priority",
         "_id": "18787c15e04-d7x5h1bdbdonzq"
       },
-      "18787c15e08-ctnuzip6vqhjrq": {
-        "_id": "18787c15e08-ctnuzip6vqhjrq",
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "food!"
-      },
       "18787c20c18-ab9t5aebofb5sv": {
+        "_id": "18787c20c18-ab9t5aebofb5sv",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "whatever",
-        "_id": "18787c20c18-ab9t5aebofb5sv"
+        "tag": "whatever ma!"
       },
       "18787cb5843-suol2o0n4byqux": {
         "_id": "18787cb5843-suol2o0n4byqux",
@@ -207,37 +196,12 @@
       "187882942c3-nqw6hjt8tu1gjo": {
         "_id": "187882942c3-nqw6hjt8tu1gjo",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "discorduwu"
-      },
-      "1878944ae6c-09v30oyse8earg": {
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "meow",
-        "_id": "1878944ae6c-09v30oyse8earg"
-      },
-      "1878b1f4504-0jd0rij2tyi4r0": {
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "csci5118",
-        "_id": "1878b1f4504-0jd0rij2tyi4r0"
+        "tag": "discordu"
       },
       "1878b4e669e-c23sboslr66ewr": {
         "_id": "1878b4e669e-c23sboslr66ewr",
         "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "catus"
-      },
-      "1878b95cf46-8lnt9kyhl52z4w": {
-        "_id": "1878b95cf46-8lnt9kyhl52z4w",
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "cutie pie"
-      },
-      "1878e0080e8-qrkytgd2f2guom": {
-        "_id": "1878e0080e8-qrkytgd2f2guom",
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "cutie pie"
-      },
-      "1878e0390fc-x5fc99vz196ov5": {
-        "uid": "user_2OOt8RnNhMlwHS3P5mpu71N9p79",
-        "tag": "catus",
-        "_id": "1878e0390fc-x5fc99vz196ov5"
+        "tag": "poona"
       }
     }
   ],

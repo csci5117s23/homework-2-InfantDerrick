@@ -25,11 +25,11 @@ const tagYup = object({
 const userAuth = async (req, res, next) => {
     try {
       const { authorization } = req.headers;
-      console.log(authorization)
+      // console.log(authorization)
       if (authorization) {
         const token = authorization.replace('Bearer ','');
         const token_parsed = jwtDecode(token);
-        console.log(token_parsed)
+        // console.log(token_parsed)
         req.user_token = token_parsed;
       }else{
         res.status(403).end();
@@ -44,24 +44,30 @@ app.use(userAuth)
 app.put('/updateTodo', update)
 async function update(req, res) {
   const db = await Datastore.open();
+  console.log('/updateTodo body: \n')
   console.log(req.body);
   const data = await db.replaceOne('todos', req.query._id, req.body);
+  console.log('/updateTodo response: \n')
   console.log(data);
   res.json(data);
 }
 app.put('/updateTag', updateTag)
 async function updateTag(req, res){
   const db = await Datastore.open();
+  console.log('/updateTag body: \n')
   console.log(req.body);
   const data = await db.replaceOne('tags', req.query._id, req.body);
+  console.log('/updateTag response: \n')
   console.log(data);
   res.json(data);
 }
 app.put('/removeTag', removeTag)
 async function removeTag(req, res){
   const db = await Datastore.open();
+  console.log('/removeTag body: \n')
   console.log(req.body);
   const data = await db.removeOne('tags', req.query._id);
+  console.log('/updateTodo response: \n')
   console.log(data);
   res.json(data);
 }

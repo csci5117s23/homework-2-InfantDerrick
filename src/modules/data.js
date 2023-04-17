@@ -44,10 +44,10 @@ export async function getAllDoneTodos(userId, authToken){
   return processData(res);
 }
 
-export async function updateTodo(data, itemId, authToken){
+export async function updateTodo(data, itemId, authToken, newTag=null){
   let tagInfo = await getAllTags(data.uid, authToken);
   let tags = tagInfo.map(tag => tag.tag);
-  let newTags = data.tags.filter(tag => !tags.includes(tag));
+  let newTags = data.tags.filter(tag => (!tags.includes(tag) && newTag != null && newTag != tag));
   newTags.map(async (tag) => await postTag({
     uid: data.uid,
     tag: tag
@@ -124,7 +124,7 @@ export async function editTagForAll(userId, tagid, originalTag, updatedTag, auth
     let newTags = item.tags.filter((tag) => tag != originalTag);
     newTags = [...newTags, updatedTag];
     return {...item, tags: newTags}
-  }).map(async (item) => await updateTodo(item, item._id, authToken));
+  }).map(async (item) => await updateTodo(item, item._id, authToken, updatedTag));
   const newObj = {
     _id: tagid,
     uid: userId,

@@ -52,7 +52,7 @@ export default function TagFilterModal({
           await getAllTags(userId, await getToken({ template: "codehooks" }))
         )
       );
-    setNewTag(updatedTag);
+    // setNewTag(updatedTag);
     setIsLoading(false);
   };
   const handleTagDelete = async (id, originalTag) => {
