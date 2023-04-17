@@ -9,7 +9,7 @@ export default function Loader(){
       <div class="pencil__eraser"></div>
       </div>
       <div class="line"></div>
-      <h2 class="loader-comment">L o a d i n g . . .</h2>
+      <h2 class="loader-comment">L o a d i n g : )</h2>
     </>
   )
 }
