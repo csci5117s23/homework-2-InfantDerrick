@@ -109,7 +109,7 @@ export default function Whiteboard({name, handleNewTodo, todos, complete, donePa
 
   const handleCloseModal = (newPage) => {
     setShowModal(false);
-    if(newPage) router.push('/' + (donePage?'done':'todos'))
+    router.push('/' + (donePage?'done':'todos'))
     reloadState();
   };
   return (

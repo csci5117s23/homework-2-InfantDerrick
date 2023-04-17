@@ -16,7 +16,7 @@ export default function Tag ({color, tag, onTagEdit, onTagDelete, editable, acti
     <div
       className={`btn btn-${color} m-1 ${editable ? "flex-grow-1" : ""}`}
       style={{ borderRadius: "20px" }} onClick={(e) => {
-        if (!e.target.classList.contains("fa"))
+        if (!e.target.classList.contains("fa") && !e.target.classList.contains("form-control") )
           onTagClick(tag);
       }}
     >
